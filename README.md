@@ -13,6 +13,24 @@ To adhere to the 250-500 logic line limit and maintain high readability, the pro
 *   **Factory Pattern:** For generating random customer orders and recipes.
 *   **Observer Pattern:** Used to connect the logic timers (ingredient cooking times or customer patience) safely to the JavaFX UI for visual updates.
 
+## How to Run
+
+> **Java 17** is required. No local Maven installation needed — a Maven Wrapper is included.
+
+```bash
+# Linux / macOS
+./mvnw javafx:run
+
+# Windows
+mvnw.cmd javafx:run
+```
+
+To compile only (fast sanity check):
+
+```bash
+./mvnw -q -DskipTests compile
+```
+
 ## Internal Structure
 *   **`engine/`**: The core game loop, handling the flow of time and overarching states (Score, Game Over, Progress).
 *   **`entities/`**: The objects that exist within the world (e.g., `Customer`, `Ingredient`, `Recipe`).

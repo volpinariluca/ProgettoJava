@@ -3,7 +3,8 @@
 ## Project snapshot
 `Kitchen Frenzy!` is a JavaFX time-management game built with Maven and Java 17.  
 The app is module-based (`module unimore.oop`) and starts from `unimore.oop.MainApp`.  
-There is no `src/test` tree; verify changes with `mvn -q -DskipTests compile` and a manual run.
+There is no `src/test` tree; verify changes with `./mvnw -q -DskipTests compile` and a manual run.  
+A Maven Wrapper (`mvnw` / `mvnw.cmd`) is included — no local Maven installation required.
 
 ## Line-count budget
 | Layer | Budget |
@@ -38,15 +39,18 @@ Count only non-blank, non-comment lines when tracking the budget.
 
 ## Build and run
 ```bash
-# Sanity-check compile (fast)
-mvn -q -DskipTests compile
+# Sanity-check compile (fast) — use the wrapper so no local Maven install is needed
+./mvnw -q -DskipTests compile        # Linux / macOS
+mvnw.cmd -q -DskipTests compile      # Windows
 
 # Full package
-mvn clean package
+./mvnw clean package
 
 # Launch the game
-mvn javafx:run
+./mvnw javafx:run
 ```
+
+> `mvn` (system install) works too if already in PATH.
 
 ## When making changes
 - If you add a new `Station` subclass, register it in `GameWindow` and call `engine.registerStation(...)` so it participates in ticking.
