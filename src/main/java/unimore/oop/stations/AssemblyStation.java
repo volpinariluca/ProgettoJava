@@ -13,6 +13,10 @@ public class AssemblyStation extends Station {
         // No passive processing needed
     }
 
+    /**
+     * Overrides Station.placeItem to accumulate multiple ingredients on the plate
+     * rather than replacing a single item. getCurrentItem() is intentionally unused here.
+     */
     @Override
     public void placeItem(Ingredient item) {
         if (item != null) {

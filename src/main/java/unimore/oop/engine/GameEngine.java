@@ -9,6 +9,7 @@ import unimore.oop.stations.Station;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class GameEngine {
     private final List<Station> stations = new ArrayList<>();
@@ -18,6 +19,7 @@ public class GameEngine {
     private int spawnInterval = 15;
     private boolean gameStarted = false;
     private AssemblyStation assemblyStation;
+    private Consumer<String> eventLogger = msg -> {};
 
     public void registerStation(Station s) {
         stations.add(s);
@@ -30,6 +32,7 @@ public class GameEngine {
     public boolean isGameStarted() { return gameStarted; }
     public int getScore() { return score; }
     public List<Customer> getActiveCustomers() { return activeCustomers; }
+    public void setEventLogger(Consumer<String> logger) { this.eventLogger = logger; }
 
     public void gameTick() {
         if (!gameStarted) return;
@@ -45,7 +48,7 @@ public class GameEngine {
             if (c.isAngry()) {
                 score -= 10;
                 it.remove();
-                System.out.println("A customer left angrily! -10 Score.");
+                eventLogger.accept("A customer left angrily! -10 Score.");
             }
         }
 
@@ -77,7 +80,7 @@ public class GameEngine {
         if (required.isEmpty()) {
             score += 20;
             activeCustomers.remove(customer);
-            System.out.println("Order served! +20 Score.");
+            eventLogger.accept("Order served! +20 Score.");
             return true;
         }
 

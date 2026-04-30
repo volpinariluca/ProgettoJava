@@ -25,6 +25,7 @@ public class GameWindow {
     private final BorderPane root;
     private final Label scoreLabel    = new Label("Score: 0");
     private final Label handLabel     = new Label("Hand: (empty)");
+    private final Label feedbackLabel = new Label("");
     private final VBox  customersBox  = new VBox(8);
     private final VBox  grillBox      = new VBox(6);
     private final VBox  boardBox      = new VBox(6);
@@ -47,6 +48,7 @@ public class GameWindow {
         engine.registerStation(grill);
         engine.registerStation(board);
         engine.registerStation(assembly);
+        engine.setEventLogger(msg -> feedbackLabel.setText(msg));
 
         root = new BorderPane();
         root.setStyle("-fx-background-color: #1e1e2e;");
@@ -149,10 +151,13 @@ public class GameWindow {
         handLabel.setTextFill(Color.web("#cdd6f4"));
         handLabel.setFont(Font.font("Arial", 14));
 
+        feedbackLabel.setTextFill(Color.web("#f9e2af"));
+        feedbackLabel.setFont(Font.font("Arial", 13));
+
         Button trashBtn = styledButton("🗑 Discard", "#f38ba8");
         trashBtn.setOnAction(e -> discardHand());
 
-        bar.getChildren().addAll(handLabel, trashBtn);
+        bar.getChildren().addAll(handLabel, trashBtn, feedbackLabel);
         return bar;
     }
 
@@ -225,6 +230,7 @@ public class GameWindow {
     }
 
     private void servePlate(Customer customer) {
+        feedbackLabel.setText("");
         boolean ok = engine.tryServeMeal(customer);
         if (!ok) {
             showFeedback("❌ Wrong order – try again!");
@@ -329,7 +335,6 @@ public class GameWindow {
     }
 
     private void showFeedback(String msg) {
-        // Lightweight non-blocking toast via a temporary label in the hand bar
-        handLabel.setText(msg);
+        feedbackLabel.setText(msg);
     }
 }

@@ -13,6 +13,7 @@ public class RecipeFactory {
             case 0 -> new ArrayList<>(Arrays.asList("Meat", "Bread"));
             case 1 -> new ArrayList<>(List.of("Meat"));
             case 2 -> new ArrayList<>(Arrays.asList("Lettuce", "Bread", "Tomato"));
+            // default is required for exhaustive switch expressions; unreachable at runtime
             default -> new ArrayList<>(List.of("Meat"));
         };
     }
