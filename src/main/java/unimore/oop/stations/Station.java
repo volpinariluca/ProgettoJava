@@ -7,6 +7,10 @@ public abstract class Station {
 
     public abstract void processTick();
 
+    /**
+     * Placing an item replaces whatever is currently on the station.
+     * This is intentional: the player can remove items by picking them up first.
+     */
     public void placeItem(Ingredient item) {
         this.currentItem = item;
     }

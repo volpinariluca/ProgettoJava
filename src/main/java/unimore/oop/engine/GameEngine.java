@@ -77,7 +77,8 @@ public class GameEngine {
             }
         }
 
-        if (required.isEmpty()) {
+        // All required items present and plate has no extra ingredients
+        if (required.isEmpty() && plate.size() == customer.getRecipe().size()) {
             score += 20;
             activeCustomers.remove(customer);
             eventLogger.accept("Order served! +20 Score.");

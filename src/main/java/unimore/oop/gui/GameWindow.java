@@ -205,15 +205,19 @@ public class GameWindow {
     // ── Actions ──────────────────────────────────────────────────────────────
 
     private void interactWithStation(unimore.oop.stations.Station station) {
-        if (hand == null) return;
+        if (hand == null) { showFeedback("⚠ Pick up an ingredient first!"); return; }
+        if (station.getCurrentItem() != null) { showFeedback("⚠ Station is occupied – pick up first!"); return; }
         station.placeItem(hand);
         hand = null;
+        feedbackLabel.setText("");
         updateUI();
     }
 
     private void pickFromStation(unimore.oop.stations.Station station) {
-        if (station.getCurrentItem() == null) return;
+        if (station.getCurrentItem() == null) { showFeedback("⚠ Station is empty!"); return; }
+        if (hand != null) { showFeedback("⚠ Hands full – discard or place first!"); return; }
         hand = station.retrieveItem();
+        feedbackLabel.setText("");
         updateUI();
     }
 
